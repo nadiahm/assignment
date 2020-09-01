@@ -1,0 +1,24 @@
+if (!file.exists("./R")) {dir.create("./R")}
+d1<- read.table("./R/X_train.txt", comment.char = "#", header = FALSE)
+dim(d1)
+
+head(d1[,1:6])
+cnames <- readLines("./R/Y_train.txt",1)
+cnames <- strsplit(cnames, "|", fixed = TRUE)
+names(d1) <- make.names(cnames[[1]])
+head(d1[, 1:6])
+summary(d1)
+
+d2<- read.table("./R/X_test.txt", comment.char = "#", header = FALSE)
+dim(d2)
+
+head(d2[,1:6])
+cnames <- readLines("./R/Y_test.txt",1)
+cnames <- strsplit(cnames, "|", fixed = TRUE)
+names(d2) <- make.names(cnames[[1]])
+head(d2[, 1:6])
+
+tidy_x <- rbind ( X_train , X_test )
+tidy_y <- rbind ( y_train , y_test )
+tidy_sub <- rbind ( subject_train , subject_test )
+tidy_total <- cbind ( tidy_x , tidy_y , tidy_sub )
